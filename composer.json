@@ -1,0 +1,27 @@
+{
+    "name": "coldxpress/ticket",
+    "description": "A Laravel Package for generating Ticket",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "swiftsolution",
+            "email": "swift.solutions.com@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+
+    "autoload": {
+        "psr-4": {
+            "Coldxpress\\Ticket\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Coldxpress\\Ticket\\TicketServiceProvider"
+            ]
+        }
+    }
+}
