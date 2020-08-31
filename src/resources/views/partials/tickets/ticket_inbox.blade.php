@@ -40,7 +40,7 @@
             <div class="kt-inbox__messages">
                 <form class="kt-form kt-form--label-right" method="post" id="submit_reply">
                     @csrf
-                    <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+                    <input type="hidden" name="user_id" value="{{$user->id}}">
                     <input type="hidden" name="replied_by" value="user">
                     <div class="kt-inbox__message kt-inbox__message--expanded">
                         <div class="kt-inbox__head">

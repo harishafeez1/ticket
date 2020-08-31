@@ -2,6 +2,7 @@
 
 namespace Coldxpress\Ticket;
 
+use App\Models\Admin\Customer;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
@@ -18,6 +19,7 @@ class TicketServiceProvider extends ServiceProvider
 
     public function boot()
     {
+        // dd(\Auth::guard());
         //dd(asset('ticket/assets/plugins/global/plugins.bundle.css'));
         $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
         // $this->loadRoutesFrom(__DIR__ . '/routes/api.php');

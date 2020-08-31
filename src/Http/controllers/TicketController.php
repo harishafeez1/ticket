@@ -31,10 +31,24 @@ class TicketController extends Controller
         if ($filter == "pending") {
             $tickets = Ticket::where('status', 3);
         }
+     
+        if(Auth::guard('customer')->check()){
+        $tickets = $tickets->where('requester_id', Auth::guard('customer')->user()->id)->where('model', get_class(Auth::guard('customer')->user()))->orderBy('created_at', 'desc')->paginate(5);
+ 
+    }else{
+            $tickets = $tickets->where('requester_id', Auth::user()->id)->where('model', get_class(Auth::user()))->orderBy('created_at', 'desc')->paginate(5);
+            
+        }
+        $user =$this->getUser();
+        return view('ticket::pages.index', compact('tickets','user'));
+    }
 
-        $tickets = $tickets->where('requester_id', Auth::user()->id)->where('model', get_class(Auth::user()))->orderBy('created_at', 'desc')->paginate(5);
-
-        return view('ticket::pages.index', compact('tickets'));
+    public function getUser(){
+        if(Auth::guard('customer')->check()){
+            return Auth::guard('customer')->user();
+        }else{
+            return Auth::user();
+        }
     }
 
     public function store(Request $request)
@@ -43,12 +57,12 @@ class TicketController extends Controller
         $validator = $request->all();
         unset($validator['message']);
         try {
-            $validator['requester_id'] = Auth::user()->id;
-            $validator['requester_name'] = Auth::user()->name;
-            $validator['model'] = get_class(Auth::user());
+            $validator['requester_id'] = $this->getUser()->id;
+            $validator['requester_name'] = $this->getUser()->name;
+            $validator['model'] = get_class($this->getUser());
             $ticket = Ticket::create($validator);
             if (!empty($request->message)) {
-                $ticket->ticket_replies()->create(['replied_by' => 'user', 'agent_name' => null, 'user_id' => Auth::user()->id, 'message' => $request->message]);
+                $ticket->ticket_replies()->create(['replied_by' => 'user', 'agent_name' => null, 'user_id' => $this->getUser()->id, 'message' => $request->message]);
             }
             return back()->with('success', 'Ticket Created Successfully');
         } catch (\Exception $exception) {

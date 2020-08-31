@@ -130,7 +130,7 @@
                     <?php
                         use Illuminate\Support\Facades\Auth;
                         ?>
-                    <span class="kt-header__topbar-username kt-hidden-mobile">{{Auth::user()->name}}</span>
+                    <span class="kt-header__topbar-username kt-hidden-mobile">{{$user->name}}</span>
                     <img class="kt-hidden" alt="Pic" src="{{asset('media/users/300_25.jpg')}}" />
 
                     <span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold"></span>

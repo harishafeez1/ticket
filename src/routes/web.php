@@ -1,8 +1,9 @@
 <?php
 
 Route::group(['namespace' => 'Coldxpress\Ticket\Http\Controllers'], function () {
-    Route::group(['middleware' => ['web','auth:customer']], function () {
-        Route::group(['prefix' => 'tickets'], function () {
+    Route::group(['middleware' => 'web'], function () {
+        
+        Route::group(['prefix' => 'tickets','middleware'=>['customer']], function () {
             Route::get('/{filter}', 'TicketController@index')->name('tickets.index');
             Route::post('/store', 'TicketController@store')->name('tickets.store');
             Route::post('/update', 'TicketController@updateTicket')->name('tickets.update');
@@ -11,5 +12,11 @@ Route::group(['namespace' => 'Coldxpress\Ticket\Http\Controllers'], function () 
             Route::post('/store_reply/{ticket_id}', 'TicketController@storeReply')->name('tickets.store.reply');
             Route::post('/store_replies_image', 'TicketController@uploadReplyImage');
         });
+        
     });
+    
+   
 });
+
+//what is another guard ?
+//its customer 

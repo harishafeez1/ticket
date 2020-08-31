@@ -7,7 +7,7 @@
                 <!--onclick=" filteredTickets('unsolved')"-->
                 <a href="/tickets/unsolved" class="kt-nav__link" ata-action="list" data-type="your_unsolved_tickets"> <span class="kt-nav__link-text">Unsolved Tickets</span>
                     <span class="kt-nav__link-badge">
-                        <span class="kt-badge kt-badge--unified-success kt-badge--md kt-badge--rounded kt-badge--boldest">{{\Coldxpress\Ticket\Models\Ticket::where('status', 0)->where('requester_id',Auth::user()->id)->where('model',get_class(Auth::user()))->count()}}</span>
+                        <span class="kt-badge kt-badge--unified-success kt-badge--md kt-badge--rounded kt-badge--boldest">{{\Coldxpress\Ticket\Models\Ticket::where('status', 0)->where('requester_id',$user->id)->where('model',get_class($user))->count()}}</span>
                     </span>
                 </a>
             </li>
@@ -16,7 +16,7 @@
                 <!-- onclick="filteredTickets('solved')" -->
                 <a href="/tickets/solved" class="kt-nav__link" ata-action="list" data-type="marked"> <span class="kt-nav__link-text">Solved Tickets</span>
                     <span class="kt-nav__link-badge">
-                        <span class="kt-badge kt-badge--unified-success kt-badge--md kt-badge--rounded kt-badge--boldest">{{\Coldxpress\Ticket\Models\Ticket::where('status', 1)->where('requester_id',Auth::user()->id)->where('model',get_class(Auth::user()))->count()}}</span>
+                        <span class="kt-badge kt-badge--unified-success kt-badge--md kt-badge--rounded kt-badge--boldest">{{\Coldxpress\Ticket\Models\Ticket::where('status', 1)->where('requester_id',$user->id)->where('model',get_class($user))->count()}}</span>
                     </span>
                 </a>
             </li>
@@ -25,7 +25,7 @@
                 <!-- onclick="filteredTickets('solved')" -->
                 <a href="/tickets/suspended" class="kt-nav__link" ata-action="list" data-type="marked"> <span class="kt-nav__link-text">Suspended Tickets</span>
                     <span class="kt-nav__link-badge">
-                        <span class="kt-badge kt-badge--unified-success kt-badge--md kt-badge--rounded kt-badge--boldest">{{\Coldxpress\Ticket\Models\Ticket::where('status', 2)->where('requester_id',Auth::user()->id)->where('model',get_class(Auth::user()))->count()}}</span>
+                        <span class="kt-badge kt-badge--unified-success kt-badge--md kt-badge--rounded kt-badge--boldest">{{\Coldxpress\Ticket\Models\Ticket::where('status', 2)->where('requester_id',$user->id)->where('model',get_class($user))->count()}}</span>
                     </span>
                 </a>
             </li>
