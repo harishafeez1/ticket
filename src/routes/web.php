@@ -1,7 +1,7 @@
 <?php
 
 Route::group(['namespace' => 'Coldxpress\Ticket\Http\Controllers'], function () {
-    Route::group(['middleware' => ['web']], function () {
+    Route::group(['middleware' => ['web','auth:customer']], function () {
         Route::group(['prefix' => 'tickets'], function () {
             Route::get('/{filter}', 'TicketController@index')->name('tickets.index');
             Route::post('/store', 'TicketController@store')->name('tickets.store');
