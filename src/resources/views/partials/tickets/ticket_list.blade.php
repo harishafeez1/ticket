@@ -41,6 +41,9 @@
                 <div class="ml-2" style="width: 8%;">
                     <h5 style="color:black;font-weight: 600">Priority</h5>
                 </div>
+                <div class="ml-2" style="width: 8%;">
+                    <h5 style="color:black;font-weight: 600">Date Added</h5>
+                </div>
                 <div class="ml-2">
                     <h5 style="color:black;font-weight: 600">Message</h5>
                 </div>
@@ -112,6 +115,9 @@
                 </div>
                 <div class="kt-inbox__datetime" data-toggle="view">
                     <span class="kt-badge {{$tPColor}} kt-badge--inline">{{$ticketPirority}}</span>
+                </div>
+                <div class="kt-inbox__datetime" data-toggle="view">
+                    <span class="kt-badge kt-badge--inline">{{date('Y-m-d',$ticket->created_at)}}</span>
                 </div>
                 <div class="kt-inbox__datetime" data-toggle="view" style="text-align: center;">
                     <span class="fa fa-envelope fa-2x" ></span>
