@@ -117,7 +117,7 @@
                     <span class="kt-badge {{$tPColor}} kt-badge--inline">{{$ticketPirority}}</span>
                 </div>
                 <div class="kt-inbox__datetime" data-toggle="view">
-                    <span class="kt-badge kt-badge--inline">{{date('Y-m-d',$ticket->created_at)}}</span>
+                    <span class="kt-badge kt-badge--inline">{{date('Y-m-d H:i:s',$ticket->created_at)}}</span>
                 </div>
                 <div class="kt-inbox__datetime" data-toggle="view" style="text-align: center;">
                     <span class="fa fa-envelope fa-2x" ></span>
