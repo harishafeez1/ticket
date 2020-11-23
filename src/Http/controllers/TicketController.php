@@ -105,7 +105,7 @@ class TicketController extends Controller
     public function uploadReplyImage(Request $request)
     {
 
-        $ticketReplyInfo =  S3FileUpload($request, 'file', 'ticket_media');
+        $ticketReplyInfo =  S3FileUpload($request, 'file', 'ticket_media' , true);
         $url = Storage::disk('s3')->url($ticketReplyInfo['file_with_folder']);
         echo json_encode(array('location' => $url));
     }
