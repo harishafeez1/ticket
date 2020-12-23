@@ -18,6 +18,8 @@
     <link rel="shortcut icon" href="https://www.coldxpress.com.au/wp-content/uploads/2015/09/c.png" sizes="192x192">
     <link rel="apple-touch-icon-precomposed" href="https://www.coldxpress.com.au/wp-content/uploads/2015/09/c.png">
 
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    
     <!-- {{asset('css/skins/aside/dark.css')}} -->
 
     <!--begin::Fonts -->
@@ -54,7 +56,6 @@
     <!--begin::Page Custom Styles(used by this page) -->
     <link href="{{asset('plugins/custom/kanban/kanban.bundle.css')}}" rel="stylesheet" type="text/css" />
 
-    <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"> -->
     <!-- <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet"> -->
 
 

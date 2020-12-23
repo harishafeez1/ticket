@@ -16,7 +16,7 @@
                     <span class="kt-inbox__perpage">{{ $tickets->currentPage() }} - {{ $tickets->lastPage() }} of {{ $tickets->total() }}</span>
                 </div>
 
-                <div class="kt-inbox__pages mt-3">
+                <div class="kt-inbox__pages">
                     {{ $tickets->links() }}
                 </div>
             </div>
