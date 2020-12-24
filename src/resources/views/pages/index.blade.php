@@ -8,7 +8,7 @@
     } */
 
     .kt-inbox__text>p>img {
-        width: 100px !important;
+        width: 100% !important;
     }
 
     .badge-notify {
