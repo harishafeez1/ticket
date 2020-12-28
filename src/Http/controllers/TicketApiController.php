@@ -45,8 +45,11 @@ class TicketApiController extends Controller
     public function fetchAllTickets($filter = "unsolved")
     {
         if ($filter == "unsolved") {
+            $tickets = Ticket::where('status', 0)->whereNot('requester_id', 0);
+        }
 
-            $tickets = Ticket::where('status', 0);
+        if ($filter == "system_unsolved") {
+            $tickets = Ticket::where('status', 0)->where('requester_id', 0);
         }
         if ($filter == "solved") {
             $tickets = Ticket::where('status', 1);
@@ -57,7 +60,8 @@ class TicketApiController extends Controller
         if ($filter == "pending") {
             $tickets = Ticket::where('status', 3);
         }
-        $tickets = $tickets->orderBy('created_at', 'desc')->paginate(10);
+        
+        $tickets = $tickets->with('ticket_assigned_agents')->orderBy('created_at', 'desc')->paginate(10);
         return response()->json($tickets);
     }
 
