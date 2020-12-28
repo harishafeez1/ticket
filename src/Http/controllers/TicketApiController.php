@@ -137,7 +137,8 @@ class TicketApiController extends Controller
 
             $countTickets = array();
 
-            $countTickets['unsolvedTicketCount'] = Ticket::where('status', 0)->count();
+            $countTickets['unsolvedTicketCount'] = Ticket::where('status', 0)->whereNot('requester_id', 0)->count();
+            $countTickets['systemUnsolvedTicketCount'] = Ticket::where('status', 0)->where('requester_id', 0)->count();
             $countTickets['suspendedTicketCount'] = Ticket::where('status', 2)->count();
             $countTickets['pendingTicketCount'] = Ticket::where('status', 3)->count();
 
