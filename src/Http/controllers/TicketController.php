@@ -34,9 +34,7 @@ class TicketController extends Controller
             $tickets = Ticket::where('status', 3);
         }
      
-        if(!Auth::guard('customer')->check() && !Auth::check()){
-            return back();
-        }
+       
         
         if(Auth::guard('customer')->check()){
         $tickets = $tickets->where('requester_id', Auth::guard('customer')->user()->id)->where('model', get_class(Auth::guard('customer')->user()))->orderBy('created_at', 'desc')->paginate(5);
