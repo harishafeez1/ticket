@@ -19,7 +19,7 @@ class TicketController extends Controller
     public function index($filter = "unsolved")
     {
         if ($filter == "unsolved") {
-            $tickets = Ticket::where('status', 0)->whereNot('requester_id', 0);
+            $tickets = Ticket::where('status', 0)->where('requester_id','!=', 0);
         }
         if ($filter == "system_unsolved") {
             $tickets = Ticket::where('status', 0)->where('requester_id', 0);
