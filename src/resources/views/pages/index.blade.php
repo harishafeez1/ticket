@@ -353,6 +353,8 @@
 
         e.preventDefault(); // avoid to execute the actual submit of the form.
         tinyMCE.triggerSave();
+        let tinymceContent = window.btoa($('#kt-ticket-reply-tinymce').val());
+        $('#kt-ticket-reply-tinymce').val(tinymceContent);
         var form = $(this);
         console.log(form.serialize());
         var url = form.attr('action');
