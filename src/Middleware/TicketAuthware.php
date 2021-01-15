@@ -24,13 +24,13 @@ class TicketAuthware
         // print_r($_SERVER);
         // exit;
 
-        // $access_token = $request->header('Ticket');
+        $access_token = $request->header('Ticket');
 
-        // if (TicketAuth::where('access_token', $access_token)->exists()) {
+        if (TicketAuth::where('access_token', $access_token)->exists()) {
             return $next($request);
-        // } else {
+        } else {
 
-        //     return response()->json(['message' => 'Not Found!'], 404);
-        // }
+            return response()->json(['message' => 'Not Found!'], 404);
+        }
     }
 }
