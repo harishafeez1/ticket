@@ -276,7 +276,27 @@
             xhr.send(formData);
         }
     });
-
+   
+    // this is the id of the form
+    $("#kt_form_ticket").submit(function(e) {
+        tinymce.triggerSave();
+        let tinymceContent = window.btoa($('#kt-ticket-store-tinymce').val());
+        $('#kt-ticket-store-tinymce').val(tinymceContent);
+        
+        e.preventDefault(); // avoid to execute the actual submit of the form.
+        var form = $(this);
+        console.log(form.serialize());
+        var url = form.attr('action');
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: form.serialize(), // serializes the form's elements.
+            success: function(data)
+            {
+                location.reload(); // show response from the php script.
+            }
+        });
+    });
     $("#kt_form_edit_ticket").submit(function(e) {
 
         e.preventDefault(); // avoid to execute the actual submit of the form.

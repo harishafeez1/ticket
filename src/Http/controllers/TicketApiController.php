@@ -3,17 +3,11 @@
 namespace Coldxpress\Ticket\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Contact;
-use App\Models\Staff;
-use App\Models\Contractor;
-use App\Models\Driver;
 use Coldxpress\Ticket\Models\Ticket;
 use Coldxpress\Ticket\Models\TicketAssignedAgent;
 use Coldxpress\Ticket\Models\TicketAuth;
 use Coldxpress\Ticket\Models\TicketReply;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Coldxpress\Ticket\Middleware\TicketAuthware;
 
 
@@ -45,7 +39,7 @@ class TicketApiController extends Controller
     public function fetchAllTickets($filter = "unsolved")
     {
         if ($filter == "unsolved") {
-            $tickets = Ticket::where('status', 0)->whereNot('requester_id', 0);
+            $tickets = Ticket::where('status', 0)->where('requester_id', '!=', 0);
         }
 
         if ($filter == "system_unsolved") {
@@ -60,7 +54,7 @@ class TicketApiController extends Controller
         if ($filter == "pending") {
             $tickets = Ticket::where('status', 3);
         }
-        
+
         $tickets = $tickets->with('ticket_assigned_agents')->orderBy('created_at', 'desc')->paginate(10);
         return response()->json($tickets);
     }
@@ -137,7 +131,7 @@ class TicketApiController extends Controller
 
             $countTickets = array();
 
-            $countTickets['unsolvedTicketCount'] = Ticket::where('status', 0)->whereNot('requester_id', 0)->count();
+            $countTickets['unsolvedTicketCount'] = Ticket::where('status', 0)->where('requester_id', '!=', 0)->count();
             $countTickets['systemUnsolvedTicketCount'] = Ticket::where('status', 0)->where('requester_id', 0)->count();
             $countTickets['suspendedTicketCount'] = Ticket::where('status', 2)->count();
             $countTickets['pendingTicketCount'] = Ticket::where('status', 3)->count();
@@ -243,7 +237,13 @@ class TicketApiController extends Controller
             }
 
             $replies = TicketReply::where('ticket_id', $ticket_id)->get();
-
+            
+            foreach ($replies as $reply) {
+                if (base64_encode(base64_decode($reply->message, true)) === $reply->message) {
+                    $reply->message = base64_decode($reply->message);
+                }
+            }
+            
             Ticket::where('id', $ticket_id)->update(['agent_seen' => 0]);
 
             return response()->json(['allReplies' => $replies, 'userName' => $nameOfUser, 'agents' => $ticket->ticket_assigned_agents, 'ticket' => $ticket]);

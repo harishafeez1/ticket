@@ -3,10 +3,6 @@
 namespace Coldxpress\Ticket\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Contact;
-use App\Models\Staff;
-use App\Models\Contractor;
-use App\Models\Driver;
 use Coldxpress\Ticket\Models\Ticket;
 use Coldxpress\Ticket\Models\TicketReply;
 use Illuminate\Http\Request;
@@ -19,7 +15,7 @@ class TicketController extends Controller
     public function index($filter = "unsolved")
     {
         if ($filter == "unsolved") {
-            $tickets = Ticket::where('status', 0)->whereNot('requester_id', 0);
+            $tickets = Ticket::where('status', 0)->where('requester_id', '!=', 0);
         }
         if ($filter == "system_unsolved") {
             $tickets = Ticket::where('status', 0)->where('requester_id', 0);
@@ -76,7 +72,11 @@ class TicketController extends Controller
     {
 
         $replies = TicketReply::with('ticket')->where('ticket_id', $ticket_id)->get();
-
+        foreach ($replies as $reply) {
+            if (base64_encode(base64_decode($reply->message, true)) === $reply->message) {
+                $reply->message = base64_decode($reply->message);
+            }
+        }
         $userName = $replies[0]->ticket->model::select('name')->where('id',  $replies[0]->ticket->requester_id)->first();
         $nameOfUser = $userName->name;
 
