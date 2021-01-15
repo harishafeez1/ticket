@@ -15,7 +15,7 @@ class TicketController extends Controller
     public function index($filter = "unsolved")
     {
         if ($filter == "unsolved") {
-            $tickets = Ticket::where('status', 0)->where('requester_id', '!=', 0);
+            $tickets = Ticket::where('status', 0)->where('requester_id','!=', 0);
         }
         if ($filter == "system_unsolved") {
             $tickets = Ticket::where('status', 0)->where('requester_id', 0);
@@ -30,6 +30,8 @@ class TicketController extends Controller
             $tickets = Ticket::where('status', 3);
         }
      
+       
+        
         if(Auth::guard('customer')->check()){
         $tickets = $tickets->where('requester_id', Auth::guard('customer')->user()->id)->where('model', get_class(Auth::guard('customer')->user()))->orderBy('created_at', 'desc')->paginate(5);
  
